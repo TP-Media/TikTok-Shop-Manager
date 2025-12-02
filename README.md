@@ -3,6 +3,36 @@
 **Offline Web-App zur Verwaltung von TikTok Shop Mustern & Auszahlungen**
 **100% lokal · keine Server · DSGVO-konform**
 
+UPDATE: V1.5 
+🆕 Neue Features
+
+Logo-Upload in Stammdaten → Logo erscheint automatisch oben rechts auf jeder Proforma-Rechnung
+
+Kategorien für Muster (Elektronik, Haushalt, Beauty, Fashion, Fitness, Lebensmittel, Haustier, Kinder/Baby, Gaming, Sonstiges)
+
+Kategorie-Filter für Muster + „Filter zurücksetzen“-Button
+
+CSV-Export für alle Vorgänge
+
+Empfangsdatum für Auszahlungen
+
+Empfangsdatum für Muster wird auf der Rechnung angezeigt
+
+🔧 Verbesserungen
+
+Kleinunternehmer-Hinweise auf Rechnung optimiert
+
+Summen & Anzahl Vorgänge pro Bereich
+
+UI optimiert für Touch / Mobile
+
+🧹 Fixes
+
+Filter funktionierte nicht korrekt → behoben
+
+Screenshot-Vorschau stabilisiert
+
+Kleines UI-Finetuning
 ---
 
 ## ⭐ Überblick
