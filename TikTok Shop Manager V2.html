@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>TikTok Shop Manager v10 – Proforma, Eigenbelege & Muster-Verwendung</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#020617" />
+
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #0b1120;
+      --accent: #6366f1;
+      --accent-strong: #4f46e5;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+      --border: rgba(148, 163, 184, 0.35);
+      --radius-lg: 16px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.8);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .app-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 16px 32px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .title-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #22c55e, #0ea5e9, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      box-shadow: 0 0 0 1px rgba(15,23,42,0.5), 0 16px 30px rgba(15,23,42,0.9);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    header p {
+      margin: 3px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .badge {
+      background: rgba(22, 163, 74, 0.2);
+      border-radius: 999px;
+      border: 1px solid rgba(34,197,94,0.6);
+      padding: 6px 12px;
+      font-size: 11px;
+      color: #bbf7d0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.3);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(99,102,241,0.22), transparent 55%),
+                  linear-gradient(to bottom right, rgba(15,23,42,0.98), rgba(15,23,42,1));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      padding: 14px 14px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(248,250,252,0.08), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-header {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      color: var(--muted);
+      background: rgba(15,23,42,0.9);
+      white-space: nowrap;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.96);
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="date"]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(99,102,241,0.7);
+      background: rgba(15,23,42,1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+      max-height: 200px;
+    }
+
+    input[type="file"] {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .field-group {
+      margin-bottom: 8px;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 640px) {
+      .input-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hint {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      padding: 8px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #fff;
+      box-shadow: 0 12px 26px rgba(79,70,229,0.55);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid rgba(148,163,184,0.8);
+    }
+
+    .btn-danger {
+      background: rgba(239,68,68,0.18);
+      color: #fecaca;
+      border: 1px solid rgba(248,113,113,0.8);
+    }
+
+    .btn-small {
+      font-size: 11px;
+      padding: 6px 10px;
+    }
+
+    .product-list {
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin: 6px 0 4px;
+    }
+
+    .list-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .list-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .list-total {
+      font-size: 11px;
+      color: #e5e7eb;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .product-empty {
+      font-size: 11px;
+      color: var(--muted);
+      padding: 8px 6px;
+      text-align: center;
+      border-radius: 12px;
+      border: 1px dashed rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.9);
+      margin-bottom: 8px;
+    }
+
+    .product-card {
+      border-radius: 14px;
+      border: 1px solid rgba(148,163,184,0.65);
+      background: rgba(15,23,42,0.98);
+      padding: 8px 9px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .thumb {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(15,23,42,0.9);
+      border: 1px dashed rgba(148,163,184,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--muted);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+
+    .p-main {
+      min-width: 0;
+    }
+
+    .p-name {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .p-meta {
+      font-size: 10px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .tag {
+      padding: 1px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.96);
+      font-size: 10px;
+    }
+
+    .p-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+    }
+
+    .price {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .tiny {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    /* Kategorie-Filterleiste */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 6px;
+      margin-top: 4px;
+    }
+
+    .filter-fields {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .filter-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal {
+      background: #020617;
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,0.7);
+      box-shadow: 0 24px 60px rgba(15,23,42,0.95);
+      max-width: 900px;
+      width: 100%;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(37,99,235,0.7);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .modal-body {
+      padding: 10px 14px 12px;
+      overflow-y: auto;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.4), transparent 55%);
+    }
+
+    .modal-footer {
+      padding: 8px 14px;
+      border-top: 1px solid rgba(37,99,235,0.7);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      background: #020617;
+    }
+
+    /* Invoice / Eigenbeleg preview */
+    .invoice-wrapper {
+      background: #ffffff;
+      color: #111827;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 12px;
+      line-height: 1.4;
+      padding: 18px 20px;
+      border-radius: 12px;
+    }
+
+    .invoice-header-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .invoice-from,
+    .invoice-to {
+      font-size: 11px;
+    }
+
+    .invoice-label {
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 3px;
+    }
+
+    .invoice-heading {
+      text-align: right;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #1f2933;
+    }
+
+    .invoice-subheading {
+      text-align: right;
+      font-size: 11px;
+      color: #4b5563;
+    }
+
+    .invoice-meta {
+      font-size: 11px;
+      margin-top: 2px;
+    }
+
+    .invoice-logo {
+      text-align: right;
+      margin-bottom: 4px;
+    }
+
+    .invoice-logo img {
+      max-height: 40px;
+      max-width: 90px;
+      border-radius: 6px;
+      border: 1px solid #e5e7eb;
+      display: inline-block;
+    }
+
+    table.invoice-items {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 11px;
+    }
+
+    table.invoice-items th,
+    table.invoice-items td {
+      border: 1px solid #d1d5db;
+      padding: 6px 5px;
+    }
+
+    table.invoice-items th {
+      background: #f3f4f6;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    table.invoice-items td:last-child,
+    table.invoice-items th:last-child {
+      text-align: right;
+    }
+
+    .invoice-total-row td {
+      font-weight: 600;
+      background: #f9fafb;
+    }
+
+    .invoice-footer-text {
+      font-size: 10px;
+      margin-top: 10px;
+      color: #4b5563;
+    }
+
+    .invoice-footer-text strong {
+      color: #b91c1c;
+    }
+
+    .invoice-screenshot-block {
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px dashed #d1d5db;
+      padding: 6px;
+      font-size: 10px;
+      color: #6b7280;
+    }
+
+    .invoice-screenshot-block img {
+      max-width: 100%;
+      max-height: 260px;
+      margin-top: 5px;
+      border-radius: 6px;
+    }
+
+    .invoice-number-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .invoice-number-row select {
+      max-width: 230px;
+    }
+
+    .invoice-number-row input {
+      max-width: 200px;
+    }
+
+    .logo-preview-box img {
+      max-height: 32px;
+      max-width: 80px;
+      border-radius: 6px;
+      border: 1px solid rgba(148,163,184,0.7);
+      display: inline-block;
+    }
+
+    @media (max-width: 640px) {
+      .invoice-wrapper {
+        padding: 14px 12px;
+      }
+      .invoice-header-row {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+
+    /* PRINT: nur Dokument drucken */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #invoicePreview, #invoicePreview * {
+        visibility: visible !important;
+      }
+      #invoicePreview {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 0;
+        border-radius: 0;
+      }
+      body {
+        background: #ffffff !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <div class="title-block">
+        <div class="logo-circle">NP</div>
+        <div>
+          <h1>TikTok Shop Manager by NovaPicksDE</h1>
+          <p>v10 – Muster: Proforma & Eigenbelege · Auszahlungen: Eigenbelege · Logo, Kategorien & Summen</p>
+        </div>
+      </div>
+      <div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Offline nutzbar · Daten bleiben lokal
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <!-- Linke Spalte: Stammdaten + Vorgang -->
+      <section class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Stammdaten & Vorgang anlegen</div>
+              <div class="card-subtitle">
+                Einmal Stammdaten speichern, danach TikTok Shop Muster & Auszahlungen erfassen.
+              </div>
+            </div>
+            <span class="pill">Kleinunternehmer (§19 UStG)</span>
+          </div>
+
+          <!-- Stammdaten -->
+          <div class="field-group">
+            <label for="userName">Dein Name / Firma</label>
+            <input id="userName" type="text" placeholder="Max Mustermann / NovaPicksDE" />
+          </div>
+          <div class="field-group">
+            <label for="userAddress1">Anschrift (Zeile 1)</label>
+            <input id="userAddress1" type="text" placeholder="Musterstraße 1" />
+          </div>
+          <div class="field-group">
+            <label for="userAddress2">Anschrift (Zeile 2)</label>
+            <input id="userAddress2" type="text" placeholder="12345 Musterstadt, Deutschland" />
+          </div>
+          <div class="field-group">
+            <label for="userTaxNumber">Steuernummer</label>
+            <input id="userTaxNumber" type="text" placeholder="z.B. 12/345/67890" />
+          </div>
+          <div class="field-group">
+            <label for="userExtra">Zusatzinfo (optional, z.B. E-Mail, TikTok Handle)</label>
+            <textarea id="userExtra" placeholder="E-Mail..., TikTok Handle..."></textarea>
+          </div>
+
+          <div class="field-group">
+            <label for="userLogo">Logo (für Proforma & Eigenbelege)</label>
+            <input id="userLogo" type="file" accept="image/*" />
+            <div class="hint">Wird klein oben rechts auf allen Dokumenten angezeigt. Bleibt lokal im Browser gespeichert.</div>
+            <div id="logoPreview" class="hint logo-preview-box" style="margin-top:4px;">Noch kein Logo gespeichert.</div>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-outline btn-small" id="resetAllBtn">Alle Daten löschen</button>
+            <button class="btn-primary btn-small" id="saveSettingsBtn">Stammdaten speichern</button>
+          </div>
+
+          <hr style="margin: 12px 0; border: none; border-top: 1px dashed rgba(148,163,184,0.6);" />
+
+          <!-- Vorgang anlegen -->
+          <div class="card-header" style="margin-top:0; margin-bottom:8px;">
+            <div>
+              <div class="card-title" style="font-size:15px;">Neuer TikTok Shop Vorgang</div>
+              <div class="card-subtitle">
+                Muster: Proforma oder Eigenbeleg (Defekt/Verbrauch/Nutzung) · Auszahlungen: Eigenbeleg.
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="productType">Art des Vorgangs</label>
+            <select id="productType">
+              <option value="muster">TikTok Shop Muster (Produkt erhalten)</option>
+              <option value="auszahlung">TikTok Shop Auszahlung (Geld erhalten)</option>
+            </select>
+          </div>
+
+          <div class="field-group" id="musterDateGroup">
+            <label for="musterDate">Datum Muster erhalten</label>
+            <input id="musterDate" type="date" />
+            <div class="hint">Datum, an dem das Testprodukt geliefert / erhalten wurde.</div>
+          </div>
+
+          <div class="field-group" id="auszahlungDateGroup">
+            <label for="auszahlungDate">Datum Auszahlung erhalten</label>
+            <input id="auszahlungDate" type="date" />
+            <div class="hint">Datum, an dem die Auszahlung auf deinem Konto eingegangen ist.</div>
+          </div>
+
+          <div id="musterReceiverBlock">
+            <div class="field-group">
+              <label for="merchantName">Händlername (Empfänger der Proforma-Rechnung)</label>
+              <input id="merchantName" type="text" placeholder="z.B. MusterShop GmbH" />
+            </div>
+            <div class="field-group">
+              <label for="merchantAddress1">Händler-Anschrift (Zeile 1)</label>
+              <input id="merchantAddress1" type="text" placeholder="Händlerstraße 1" />
+            </div>
+            <div class="field-group">
+              <label for="merchantAddress2">Händler-Anschrift (Zeile 2)</label>
+              <input id="merchantAddress2" type="text" placeholder="PLZ Ort, Land" />
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="merchantUnknown" />
+              <label for="merchantUnknown" style="margin:0;">
+                Händler / Shop nicht bekannt oder TikTok Shop geschlossen – TikTok als Empfänger verwenden.
+              </label>
+            </div>
+            <div class="hint">
+              Wenn kein Händler eingetragen ist oder „Shop geschlossen“ aktiv ist, wird TikTok Technology Limited als Empfänger verwendet und auf der Proforma der Hinweis
+              „TikTok Shop geschlossen, kein Händler bekannt“ ergänzt.
+            </div>
+          </div>
+
+          <div class="field-group" id="categoryGroup">
+            <label for="productCategory">Kategorie (für Muster)</label>
+            <select id="productCategory">
+              <option value="Sonstiges">Sonstiges</option>
+              <option value="Elektronik">Elektronik</option>
+              <option value="Haushalt">Haushalt</option>
+              <option value="Beauty">Beauty</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Fitness">Fitness</option>
+              <option value="Lebensmittel">Lebensmittel</option>
+              <option value="Haustier">Haustier</option>
+              <option value="Kinder/Baby">Kinder/Baby</option>
+              <option value="Gaming">Gaming</option>
+            </select>
+            <div class="hint">Nur relevant für Muster – hilft dir beim Filtern und Auswerten.</div>
+          </div>
+
+          <div class="field-group" id="musterUsageGroup">
+            <label for="musterUsageType">Verwendungsart des Musters</label>
+            <select id="musterUsageType">
+              <option value="normal">Normal (Proforma-Rechnung, Standard)</option>
+              <option value="defekt">Defekt bei Erhalt – Eigenbeleg „defektes Muster“</option>
+              <option value="verbraucht">Verbraucht/aufgebraucht – Eigenbeleg „nur gewerblicher Verbrauch“</option>
+              <option value="betrieblich">Nur gewerblich genutzt – Eigenbeleg „betriebliche Nutzung“</option>
+            </select>
+            <div class="hint">
+              Diese Einstellung wirkt sich nur auf das erzeugte Dokument aus:<br>
+              – <strong>Normal:</strong> Proforma-Rechnung (nicht steuerlich gültig)<br>
+              – <strong>Defekt/Verbraucht/Nutzung:</strong> Eigenbeleg für Dokumentation nach §146 AO.
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="productName">Produkt / Vorgangstitel</label>
+            <input id="productName" type="text" placeholder="z.B. Wireless Earbuds XYZ / Auszahlung Oktober" />
+          </div>
+
+          <div class="input-row field-group">
+            <div>
+              <label for="productPrice">Betrag (EUR, Warenwert oder Auszahlung)</label>
+              <input id="productPrice" type="number" min="0" step="0.01" placeholder="z.B. 29.99" />
+            </div>
+            <div>
+              <label for="productQty">Menge</label>
+              <input id="productQty" type="number" min="1" step="1" value="1" />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="productDesc">Kurzbeschreibung / Notiz (optional)</label>
+            <textarea id="productDesc" placeholder="z.B. Muster für Produkttest im TikTok Shop oder TikTok Shop Affiliate Auszahlung."></textarea>
+          </div>
+
+          <div class="field-group">
+            <label for="productScreenshot">Screenshot als Nachweis (PNG/JPG)</label>
+            <input id="productScreenshot" type="file" accept="image/*" />
+            <div class="hint">Screenshot aus TikTok Shop (Preis / Auszahlung) für eigene Doku / Finanzamt.</div>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-primary" id="addProductBtn">+ Vorgang speichern</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rechte Spalte: Listen + Kategorie-Filter + Export -->
+      <section class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Gespeicherte Vorgänge</div>
+              <div class="card-subtitle">
+                Muster (Proforma & Eigenbelege) und Auszahlungen (Eigenbelege) · mit Logo, Kategorien & Export.
+              </div>
+            </div>
+            <span class="pill">Listen, Kategorien & Export</span>
+          </div>
+
+          <div class="filter-bar">
+            <div class="filter-fields">
+              <div>
+                <label for="filterCategory">Muster nach Kategorie filtern</label>
+                <select id="filterCategory">
+                  <option value="all">Alle Kategorien</option>
+                  <option value="Elektronik">Elektronik</option>
+                  <option value="Haushalt">Haushalt</option>
+                  <option value="Beauty">Beauty</option>
+                  <option value="Fashion">Fashion</option>
+                  <option value="Fitness">Fitness</option>
+                  <option value="Lebensmittel">Lebensmittel</option>
+                  <option value="Haustier">Haustier</option>
+                  <option value="Kinder/Baby">Kinder/Baby</option>
+                  <option value="Gaming">Gaming</option>
+                  <option value="Sonstiges">Sonstiges</option>
+                </select>
+              </div>
+            </div>
+            <div class="filter-actions">
+              <button class="btn-outline btn-small" id="resetFilterBtn">Filter zurücksetzen</button>
+            </div>
+          </div>
+
+          <div class="btn-row" style="justify-content:flex-start; margin-top:4px; margin-bottom:4px;">
+            <button class="btn-outline btn-small" id="exportCsvBtn">Alle Daten als CSV exportieren</button>
+          </div>
+
+          <div class="list-header">
+            <div>
+              <div class="list-title">Muster (Proforma & Eigenbelege)</div>
+              <div class="list-sub">Erhaltene Produkte (Sachwerte) – Anzeige nach Kategorie-Filter</div>
+            </div>
+            <div class="list-total" id="musterTotal">Summe Muster: 0,00 € (0 Vorgänge)</div>
+          </div>
+          <div class="product-list" id="productListMuster"></div>
+
+          <div class="list-header" style="margin-top:10px;">
+            <div>
+              <div class="list-title">Auszahlungen (Eigenbelege)</div>
+              <div class="list-sub">TikTok Shop Affiliate Auszahlungen – Eigenbelege für Einnahmen</div>
+            </div>
+            <div class="list-total" id="auszahlungTotal">Summe Auszahlungen: 0,00 € (0 Vorgänge)</div>
+          </div>
+          <div class="product-list" id="productListAuszahlung"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="invoiceModalBackdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title" id="modalTitle">Dokument-Vorschau</div>
+          <div class="tiny" id="modalSubtitle">
+            Muster: Proforma oder Eigenbeleg · Auszahlungen: Eigenbeleg · Kleinunternehmerregelung (§19 UStG).
+          </div>
+        </div>
+        <button class="btn-outline btn-small" id="closeModalBtn">Schließen</button>
+      </div>
+      <div class="modal-body">
+        <div class="field-group" id="invoiceNumberControl">
+          <label for="invoiceNumberSelect">Beleg-/Rechnungsnummer</label>
+          <div class="invoice-number-row">
+            <select id="invoiceNumberSelect">
+              <option value="auto">Nächste Nummer</option>
+              <option value="custom">Eigene Nummer eingeben</option>
+            </select>
+            <input id="invoiceNumberCustom" type="text" placeholder="z.B. MUS-0005 / AUS-0003" disabled />
+          </div>
+          <div class="tiny">
+            Muster (MUS-0001…) und Auszahlungen (AUS-0001…) haben eigene Nummernkreise.  
+            Alternativ kannst du jederzeit eine eigene Nummer vergeben.
+          </div>
+        </div>
+
+        <div id="invoicePreview" class="invoice-wrapper">
+          <!-- Inhalt per JS -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="tiny">
+          „Als PDF speichern“ öffnet den Druckdialog. Dort „Als PDF speichern“ wählen und den Speicherort auf dem PC/Handy auswählen.
+        </span>
+        <div class="btn-row" style="flex-direction:row; flex-wrap:wrap; justify-content:flex-end; margin-top:0;">
+          <button class="btn-outline btn-small" id="copyNoteBtn">Standard-Hinweis kopieren</button>
+          <button class="btn-primary btn-small" id="downloadPdfBtn">Als PDF speichern</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEYS = {
+      SETTINGS: 'np_tiktok_manager_settings_v10',
+      PRODUCTS: 'np_tiktok_manager_products_v10'
+    };
+
+    let products = [];
+    let currentInvoiceProductId = null;
+    let currentInvoiceNumber = null;
+    let currentSuggestedInvoiceNumber = null;
+
+    let currentFilterCategory = 'all';
+
+    function loadSettings() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEYS.SETTINGS);
+        if (!raw) return {};
+        return JSON.parse(raw);
+      } catch (e) {
+        console.error('Fehler beim Laden der Settings:', e);
+        return {};
+      }
+    }
+
+    function saveSettings(settings) {
+      localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
+    }
+
+    function loadProducts() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
+        if (!raw) return [];
+        return JSON.parse(raw);
+      } catch (e) {
+        console.error('Fehler beim Laden der Produkte:', e);
+        return [];
+      }
+    }
+
+    function saveProducts(list) {
+      localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(list));
+    }
+
+    function generateId() {
+      return 'p_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+    }
+
+    function formatEuro(value) {
+      const num = Number(value) || 0;
+      return num.toFixed(2).replace('.', ',') + ' €';
+    }
+
+    function todaysDateString() {
+      const d = new Date();
+      return d.toLocaleDateString('de-DE');
+    }
+
+    function formatDateGermanFromISO(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return '';
+      return d.toLocaleDateString('de-DE');
+    }
+
+    function buildInvoiceNumber(type, seq) {
+      const prefix = type === 'auszahlung' ? 'AUS-' : 'MUS-';
+      return prefix + String(seq).padStart(4, '0');
+    }
+
+    function updateLogoPreview(logoDataUrl) {
+      const preview = document.getElementById('logoPreview');
+      if (!preview) return;
+      if (logoDataUrl) {
+        preview.innerHTML = '<img src="' + logoDataUrl + '" alt="Logo Vorschau" />&nbsp; Logo gespeichert.';
+      } else {
+        preview.textContent = 'Noch kein Logo gespeichert.';
+      }
+    }
+
+    function renderSettingsToForm() {
+      const settings = loadSettings();
+      document.getElementById('userName').value = settings.userName || '';
+      document.getElementById('userAddress1').value = settings.userAddress1 || '';
+      document.getElementById('userAddress2').value = settings.userAddress2 || '';
+      document.getElementById('userTaxNumber').value = settings.userTaxNumber || '';
+      document.getElementById('userExtra').value = settings.userExtra || '';
+      updateLogoPreview(settings.userLogoDataUrl || null);
+    }
+
+    function musterUsageLabel(val) {
+      switch (val) {
+        case 'defekt': return 'Defektes Muster';
+        case 'verbraucht': return 'Verbraucht (nur gewerblich)';
+        case 'betrieblich': return 'Nur gewerblich genutzt';
+        default: return 'Normal (Proforma)';
+      }
+    }
+
+    function createProductCard(p) {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+
+      const thumb = document.createElement('div');
+      thumb.className = 'thumb';
+      if (p.screenshotDataUrl) {
+        const img = document.createElement('img');
+        img.src = p.screenshotDataUrl;
+        img.alt = 'Screenshot Nachweis';
+        thumb.appendChild(img);
+      } else {
+        thumb.textContent = 'kein Bild';
+      }
+
+      const main = document.createElement('div');
+      main.className = 'p-main';
+
+      const nameEl = document.createElement('div');
+      nameEl.className = 'p-name';
+      nameEl.textContent = p.name || 'Unbenannter Vorgang';
+
+      const meta = document.createElement('div');
+      meta.className = 'p-meta';
+
+      const tagQty = document.createElement('span');
+      tagQty.className = 'tag';
+      tagQty.textContent = 'Menge: ' + (p.quantity || 1);
+      meta.appendChild(tagQty);
+
+      if (p.type === 'muster') {
+        const received = p.musterDate ? formatDateGermanFromISO(p.musterDate) : null;
+        const tagDate = document.createElement('span');
+        tagDate.className = 'tag';
+        tagDate.textContent = received ? ('Muster erhalten: ' + received) : 'Muster-Datum offen';
+        meta.appendChild(tagDate);
+
+        const category = p.category || 'Sonstiges';
+        const tagCat = document.createElement('span');
+        tagCat.className = 'tag';
+        tagCat.textContent = 'Kategorie: ' + category;
+        meta.appendChild(tagCat);
+
+        const tagUsage = document.createElement('span');
+        tagUsage.className = 'tag';
+        tagUsage.textContent = 'Verwendung: ' + musterUsageLabel(p.musterUsageType || 'normal');
+        meta.appendChild(tagUsage);
+      }
+
+      if (p.type === 'auszahlung') {
+        const received = p.auszahlungDate ? formatDateGermanFromISO(p.auszahlungDate) : null;
+        const tagDate = document.createElement('span');
+        tagDate.className = 'tag';
+        tagDate.textContent = received ? ('Auszahlung erhalten: ' + received) : 'Auszahlungs-Datum offen';
+        meta.appendChild(tagDate);
+      }
+
+      const tagDesc = document.createElement('span');
+      tagDesc.className = 'tag';
+      tagDesc.textContent = p.description ? 'Notiz hinterlegt' : 'Keine Notiz';
+      meta.appendChild(tagDesc);
+
+      const tagProof = document.createElement('span');
+      tagProof.className = 'tag';
+      tagProof.textContent = p.screenshotDataUrl ? 'Screenshot gespeichert' : 'Ohne Screenshot';
+      meta.appendChild(tagProof);
+
+      main.appendChild(nameEl);
+      main.appendChild(meta);
+
+      const actions = document.createElement('div');
+      actions.className = 'p-actions';
+
+      const priceEl = document.createElement('div');
+      priceEl.className = 'price';
+      const qtyForSum = Number(p.quantity || 1) || 1;
+      const lineTotal = (Number(p.price || 0) * qtyForSum) || 0;
+      priceEl.textContent = formatEuro(lineTotal);
+
+      const btnRow = document.createElement('div');
+      btnRow.style.display = 'flex';
+      btnRow.style.flexDirection = 'column';
+      btnRow.style.gap = '4px';
+
+      const invBtn = document.createElement('button');
+      invBtn.className = 'btn-primary btn-small';
+      if (p.type === 'auszahlung') {
+        invBtn.textContent = 'Eigenbeleg';
+      } else {
+        invBtn.textContent = (p.musterUsageType && p.musterUsageType !== 'normal') ? 'Eigenbeleg Muster' : 'Proforma-Rechnung';
+      }
+      invBtn.addEventListener('click', () => openDocumentModal(p.id));
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'btn-danger btn-small';
+      delBtn.textContent = 'Löschen';
+      delBtn.addEventListener('click', () => {
+        if (confirm('Vorgang wirklich löschen?')) {
+          products = products.filter(x => x.id !== p.id);
+          saveProducts(products);
+          renderProducts();
+        }
+      });
+
+      btnRow.appendChild(invBtn);
+      btnRow.appendChild(delBtn);
+
+      actions.appendChild(priceEl);
+      actions.appendChild(btnRow);
+
+      card.appendChild(thumb);
+      card.appendChild(main);
+      card.appendChild(actions);
+
+      return card;
+    }
+
+    function renderProducts() {
+      const listMuster = document.getElementById('productListMuster');
+      const listAuszahlung = document.getElementById('productListAuszahlung');
+
+      listMuster.innerHTML = '';
+      listAuszahlung.innerHTML = '';
+
+      const musterAll = products.filter(p => p.type !== 'auszahlung');
+      const auszahlungen = products.filter(p => p.type === 'auszahlung');
+
+      const musterFiltered = musterAll.filter(p => {
+        if (currentFilterCategory === 'all') return true;
+        const cat = p.category || 'Sonstiges';
+        return cat === currentFilterCategory;
+      });
+
+      let musterSum = 0;
+      let auszahlungSum = 0;
+
+      musterFiltered.forEach(p => {
+        const qty = Number(p.quantity || 1) || 1;
+        const total = qty * (Number(p.price || 0) || 0);
+        musterSum += total;
+      });
+
+      auszahlungen.forEach(p => {
+        const qty = Number(p.quantity || 1) || 1;
+        const total = qty * (Number(p.price || 0) || 0);
+        auszahlungSum += total;
+      });
+
+      const musterTotalEl = document.getElementById('musterTotal');
+      const auszahlungTotalEl = document.getElementById('auszahlungTotal');
+
+      if (musterTotalEl) {
+        musterTotalEl.textContent = 'Summe Muster: ' + formatEuro(musterSum) + ' (' + musterFiltered.length + ' Vorgänge)';
+      }
+      if (auszahlungTotalEl) {
+        auszahlungTotalEl.textContent = 'Summe Auszahlungen: ' + formatEuro(auszahlungSum) + ' (' + auszahlungen.length + ' Vorgänge)';
+      }
+
+      if (!musterFiltered.length) {
+        const empty = document.createElement('div');
+        empty.className = 'product-empty';
+        empty.textContent = 'Keine Muster für diese Kategorie.';
+        listMuster.appendChild(empty);
+      } else {
+        musterFiltered.forEach(p => listMuster.appendChild(createProductCard(p)));
+      }
+
+      if (!auszahlungen.length) {
+        const empty2 = document.createElement('div');
+        empty2.className = 'product-empty';
+        empty2.textContent = 'Noch keine Auszahlungen erfasst.';
+        listAuszahlung.appendChild(empty2);
+      } else {
+        auszahlungen.forEach(p => listAuszahlung.appendChild(createProductCard(p)));
+      }
+    }
+
+    function openDocumentModal(productId) {
+      currentInvoiceProductId = productId;
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      const settings = loadSettings();
+      const fromName = settings.userName || 'Dein Name / Firma';
+      const fromAddr1 = settings.userAddress1 || 'Deine Straße 1';
+      const fromAddr2 = settings.userAddress2 || 'PLZ Ort, Land';
+      const fromTax = settings.userTaxNumber || '';
+      const fromExtra = settings.userExtra || '';
+      const logoDataUrl = settings.userLogoDataUrl || null;
+
+      const tiktokAddress = `TikTok Technology Limited
+10 Earlsfort Terrace
+Dublin, D02 T380
+Irland`;
+
+      const lastMuster = settings.lastInvoiceNumberMuster || 0;
+      const lastAuszahlung = settings.lastInvoiceNumberAuszahlung || 0;
+      const nextSeq = product.type === 'auszahlung' ? lastAuszahlung + 1 : lastMuster + 1;
+      currentSuggestedInvoiceNumber = buildInvoiceNumber(product.type, nextSeq);
+      currentInvoiceNumber = currentSuggestedInvoiceNumber;
+
+      const qty = Number(product.quantity || 1) || 1;
+      const unitPrice = Number(product.price || 0);
+      const total = qty * unitPrice;
+
+      const today = todaysDateString();
+
+      let html = '';
+      const modalTitle = document.getElementById('modalTitle');
+      const modalSubtitle = document.getElementById('modalSubtitle');
+
+      if (product.type === 'auszahlung') {
+        // Eigenbeleg für Auszahlungen
+        if (modalTitle) modalTitle.textContent = 'Eigenbeleg Vorschau – TikTok Shop Auszahlung';
+        if (modalSubtitle) {
+          modalSubtitle.textContent = 'Eigenbeleg für TikTok Shop Affiliate Auszahlungen – mit Kleinunternehmerregelung (§19 UStG).';
+        }
+
+        const auszahlungDateText = product.auszahlungDate
+          ? formatDateGermanFromISO(product.auszahlungDate)
+          : 'nicht angegeben';
+
+        const noteText = (product.description || 'TikTok Shop Affiliate Auszahlung im Rahmen deiner Creator-/Affiliate-Tätigkeit.') +
+          (product.auszahlungDate ? ' Auszahlung erhalten am ' + formatDateGermanFromISO(product.auszahlungDate) + '.' : '');
+
+        let screenshotHtml = '';
+        if (product.screenshotDataUrl) {
+          screenshotHtml = `
+            <div class="invoice-screenshot-block">
+              <div><strong>Screenshot – Zahlungsnachweis</strong> (z.B. TikTok Auszahlungsübersicht / Kontoauszug):</div>
+              <img src="${product.screenshotDataUrl}" alt="Nachweis-Screenshot" />
+            </div>
+          `;
+        } else {
+          screenshotHtml = `
+            <div class="invoice-screenshot-block">
+              <strong>Kein Screenshot hinterlegt.</strong> Optional kann hier ein Screenshot der TikTok Auszahlung oder des Kontoauszugs ergänzt werden.
+            </div>
+          `;
+        }
+
+        html = `
+          <div class="invoice-header-row">
+            <div class="invoice-from">
+              <div class="invoice-label">Aussteller (Eigenbeleg)</div>
+              <div>${fromName}</div>
+              <div>${fromAddr1}</div>
+              <div>${fromAddr2}</div>
+              ${fromTax ? `<div>Steuernummer: ${fromTax}</div>` : ''}
+              ${fromExtra ? `<div>${fromExtra.replace(/\n/g, '<br>')}</div>` : ''}
+            </div>
+            <div style="text-align:right;">
+              ${logoDataUrl ? `<div class="invoice-logo"><img src="${logoDataUrl}" alt="Logo" /></div>` : ''}
+              <div class="invoice-heading">Eigenbeleg</div>
+              <div class="invoice-subheading">TikTok Shop Affiliate Auszahlung</div>
+              <div class="invoice-meta">
+                <div><strong>Beleg-Nr.:</strong> <span id="invoiceNumberSpan">${currentInvoiceNumber}</span></div>
+                <div><strong>Belegdatum:</strong> ${today}</div>
+                <div><strong>Auszahlungsdatum:</strong> ${auszahlungDateText}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="invoice-header-row">
+            <div class="invoice-to">
+              <div class="invoice-label">Einnahme / Vorgang</div>
+              <div>${product.name || 'TikTok Shop Affiliate Auszahlung'}</div>
+              <div>${noteText}</div>
+            </div>
+            <div class="invoice-to">
+              <div class="invoice-label">Zahlender (Plattform)</div>
+              <div>TikTok / TikTok Shop Plattform</div>
+              <div>Die genaue Auszahlung wird in den TikTok-Reports bzw. Kontoauszügen ausgewiesen.</div>
+            </div>
+          </div>
+
+          <table class="invoice-items">
+            <thead>
+              <tr>
+                <th>Pos.</th>
+                <th>Beschreibung</th>
+                <th>Menge</th>
+                <th>Betrag (EUR)</th>
+                <th>Gesamt (EUR)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>${product.name || 'TikTok Shop Affiliate Auszahlung'}</td>
+                <td>${qty}</td>
+                <td>${unitPrice.toFixed(2).replace('.', ',')}</td>
+                <td>${total.toFixed(2).replace('.', ',')}</td>
+              </tr>
+              <tr class="invoice-total-row">
+                <td colspan="4" style="text-align:right;">Gesamtbetrag (Einnahme)</td>
+                <td>${total.toFixed(2).replace('.', ',')}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="invoice-footer-text">
+            <p><strong>Eigenbeleg nach § 146 AO:</strong> Dieser Eigenbeleg dokumentiert eine Einnahme aus TikTok Shop / TikTok Affiliate, für die kein gesonderter Abrechnungsbeleg vorliegt oder dieser nur digital im Konto einsehbar ist.</p>
+            <p><strong>Kleinunternehmerregelung (§19 UStG):</strong> Ich bin Kleinunternehmer im Sinne von §19 UStG. Auf dieser Einnahme wird keine Umsatzsteuer ausgewiesen. Ein Vorsteuerabzug ist nicht möglich.</p>
+            <p><strong>Hinweis:</strong> Zusätzlich sollten passende Nachweise (z. B. Screenshot der TikTok Auszahlungsübersicht, Kontoauszug) archiviert werden.</p>
+          </div>
+
+          ${screenshotHtml}
+        `;
+      } else {
+        // Muster: je nach Verwendungsart Proforma oder Eigenbeleg
+        const usage = product.musterUsageType || 'normal';
+        const musterDateText = product.musterDate
+          ? ' Muster erhalten am ' + formatDateGermanFromISO(product.musterDate) + '.'
+          : '';
+
+        let screenshotHtml = '';
+        if (product.screenshotDataUrl) {
+          screenshotHtml = `
+            <div class="invoice-screenshot-block">
+              <div><strong>Screenshot – Nachweis</strong> (z.B. TikTok Produktseite / Angebot):</div>
+              <img src="${product.screenshotDataUrl}" alt="Nachweis-Screenshot" />
+            </div>
+          `;
+        } else {
+          screenshotHtml = `
+            <div class="invoice-screenshot-block">
+              <strong>Kein Screenshot hinterlegt.</strong> Optional kann hier ein Screenshot als Preis-/Angebotsnachweis ergänzt werden.
+            </div>
+          `;
+        }
+
+        if (usage === 'normal') {
+          // Proforma für normale Muster
+          if (modalTitle) modalTitle.textContent = 'Proforma-Rechnung Vorschau – Muster';
+          if (modalSubtitle) {
+            modalSubtitle.textContent = 'Proforma-Rechnung für TikTok Shop Muster – nicht steuerlich gültig · Kleinunternehmerregelung (§19 UStG).';
+          }
+
+          let noteText = (product.description || 'Proforma-Rechnung für TikTok Shop Produktmuster im Rahmen von Produkttests.') + musterDateText;
+
+          let receiverBlock = '';
+          let shopClosedText = '';
+
+          if (product.merchantUnknown || (!product.merchantName && !product.merchantAddress1 && !product.merchantAddress2)) {
+            receiverBlock = tiktokAddress;
+            shopClosedText = ' TikTok Shop geschlossen, kein Händler bekannt.';
+            noteText += shopClosedText;
+          } else {
+            const lines = [];
+            if (product.merchantName) lines.push(product.merchantName);
+            if (product.merchantAddress1) lines.push(product.merchantAddress1);
+            if (product.merchantAddress2) lines.push(product.merchantAddress2);
+            receiverBlock = lines.join('\n') || tiktokAddress;
+          }
+
+          html = `
+            <div class="invoice-header-row">
+              <div class="invoice-from">
+                <div class="invoice-label">Aussteller (Kleinunternehmer)</div>
+                <div>${fromName}</div>
+                <div>${fromAddr1}</div>
+                <div>${fromAddr2}</div>
+                ${fromTax ? `<div>Steuernummer: ${fromTax}</div>` : ''}
+                ${fromExtra ? `<div>${fromExtra.replace(/\n/g, '<br>')}</div>` : ''}
+              </div>
+              <div style="text-align:right;">
+                ${logoDataUrl ? `<div class="invoice-logo"><img src="${logoDataUrl}" alt="Logo" /></div>` : ''}
+                <div class="invoice-heading">Proforma-Rechnung</div>
+                <div class="invoice-meta">
+                  <div><strong>Nummer:</strong> <span id="invoiceNumberSpan">${currentInvoiceNumber}</span></div>
+                  <div><strong>Datum:</strong> ${today}</div>
+                  <div><strong>Art:</strong> TikTok Shop Muster</div>
+                  <div><strong>Status:</strong> Nicht steuerlich gültig</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="invoice-header-row">
+              <div class="invoice-to">
+                <div class="invoice-label">Empfänger (Händler / TikTok)</div>
+                <div>${receiverBlock.replace(/\n/g, '<br>')}</div>
+              </div>
+              <div class="invoice-to">
+                <div class="invoice-label">Verwendungszweck</div>
+                <div>${noteText}</div>
+              </div>
+            </div>
+
+            <table class="invoice-items">
+              <thead>
+                <tr>
+                  <th>Pos.</th>
+                  <th>Beschreibung</th>
+                  <th>Menge</th>
+                  <th>Einzelbetrag (EUR)</th>
+                  <th>Gesamt (EUR)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>${product.name || 'TikTok Shop Produktmuster'}</td>
+                  <td>${qty}</td>
+                  <td>${unitPrice.toFixed(2).replace('.', ',')}</td>
+                  <td>${total.toFixed(2).replace('.', ',')}</td>
+                </tr>
+                <tr class="invoice-total-row">
+                  <td colspan="4" style="text-align:right;">Zwischensumme</td>
+                  <td>${total.toFixed(2).replace('.', ',')}</td>
+                </tr>
+                <tr>
+                  <td colspan="4" style="text-align:right;">Umsatzsteuer (Kleinunternehmer, §19 UStG)</td>
+                  <td>0,00</td>
+                </tr>
+                <tr class="invoice-total-row">
+                  <td colspan="4" style="text-align:right;">Gesamtbetrag</td>
+                  <td>${total.toFixed(2).replace('.', ',')}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="invoice-footer-text">
+              <p><strong>Wichtiger Hinweis (Kleinunternehmerregelung):</strong> Ich bin Kleinunternehmer im Sinne von §19 UStG. Auf dieser Proforma-Rechnung wird daher <strong>keine Umsatzsteuer ausgewiesen</strong>.</p>
+              <p><strong>Nicht steuerlich gültiges Dokument:</strong> Bei diesem Dokument handelt es sich um eine <strong>Proforma-Rechnung</strong>, die ausschließlich der internen Abrechnung und Dokumentation von TikTok Shop Produktmustern dient. Dieses Dokument ersetzt <strong>keine</strong> ordnungsgemäße Rechnung mit ausgewiesener Umsatzsteuer.</p>
+            </div>
+
+            ${screenshotHtml}
+          `;
+        } else {
+          // Eigenbelege für Muster: defekt / verbraucht / betrieblich
+          let subheading = '';
+          let bodyIntro = '';
+          let extraNote = '';
+
+          if (usage === 'defekt') {
+            if (modalTitle) modalTitle.textContent = 'Eigenbeleg Vorschau – defektes Muster';
+            subheading = 'Defektes TikTok Shop Muster';
+            bodyIntro = 'Dieses Muster wurde defekt geliefert und konnte nicht genutzt oder weiterverwendet werden.';
+            extraNote = 'Es erfolgte keine private Nutzung. Das Muster hatte keinen wirtschaftlichen Nutzen.';
+          } else if (usage === 'verbraucht') {
+            if (modalTitle) modalTitle.textContent = 'Eigenbeleg Vorschau – verbrauchtes Muster';
+            subheading = 'Verbrauchtes TikTok Shop Muster (nur gewerblich)';
+            bodyIntro = 'Dieses Muster wurde vollständig im Rahmen eines gewerblichen Produkttests verbraucht/aufgebraucht.';
+            extraNote = 'Es erfolgte keine private Nutzung; der Verbrauch diente ausschließlich dem Produkttest/Content.';
+          } else {
+            if (modalTitle) modalTitle.textContent = 'Eigenbeleg Vorschau – betrieblich genutztes Muster';
+            subheading = 'Betrieblich genutztes TikTok Shop Muster';
+            bodyIntro = 'Dieses Muster wurde ausschließlich betrieblich im Rahmen von TikTok Content/Produkttests genutzt.';
+            extraNote = 'Keine private Nutzung; Verwendung nur im Rahmen der gewerblichen Tätigkeit.';
+          }
+
+          if (modalSubtitle) {
+            modalSubtitle.textContent = 'Eigenbeleg für TikTok Shop Muster (Defekt / Verbrauch / betriebliche Nutzung) – Kleinunternehmerregelung (§19 UStG).';
+          }
+
+          const noteText = (product.description || bodyIntro) + musterDateText;
+
+          html = `
+            <div class="invoice-header-row">
+              <div class="invoice-from">
+                <div class="invoice-label">Aussteller (Eigenbeleg – Muster)</div>
+                <div>${fromName}</div>
+                <div>${fromAddr1}</div>
+                <div>${fromAddr2}</div>
+                ${fromTax ? `<div>Steuernummer: ${fromTax}</div>` : ''}
+                ${fromExtra ? `<div>${fromExtra.replace(/\n/g, '<br>')}</div>` : ''}
+              </div>
+              <div style="text-align:right;">
+                ${logoDataUrl ? `<div class="invoice-logo"><img src="${logoDataUrl}" alt="Logo" /></div>` : ''}
+                <div class="invoice-heading">Eigenbeleg</div>
+                <div class="invoice-subheading">${subheading}</div>
+                <div class="invoice-meta">
+                  <div><strong>Beleg-Nr.:</strong> <span id="invoiceNumberSpan">${currentInvoiceNumber}</span></div>
+                  <div><strong>Belegdatum:</strong> ${today}</div>
+                  ${product.musterDate ? `<div><strong>Muster erhalten:</strong> ${formatDateGermanFromISO(product.musterDate)}</div>` : ''}
+                </div>
+              </div>
+            </div>
+
+            <div class="invoice-header-row">
+              <div class="invoice-to">
+                <div class="invoice-label">Muster / Artikel</div>
+                <div>${product.name || 'TikTok Shop Produktmuster'}</div>
+                <div>${noteText}</div>
+              </div>
+              <div class="invoice-to">
+                <div class="invoice-label">Verwendungsart</div>
+                <div>${musterUsageLabel(usage)}</div>
+                <div>${extraNote}</div>
+              </div>
+            </div>
+
+            <table class="invoice-items">
+              <thead>
+                <tr>
+                  <th>Pos.</th>
+                  <th>Beschreibung</th>
+                  <th>Menge</th>
+                  <th>Warenwert (EUR)</th>
+                  <th>Gesamt (EUR)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>${product.name || 'TikTok Shop Produktmuster'}</td>
+                  <td>${qty}</td>
+                  <td>${unitPrice.toFixed(2).replace('.', ',')}</td>
+                  <td>${total.toFixed(2).replace('.', ',')}</td>
+                </tr>
+                <tr class="invoice-total-row">
+                  <td colspan="4" style="text-align:right;">Warenwert gesamt</td>
+                  <td>${total.toFixed(2).replace('.', ',')}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="invoice-footer-text">
+              <p><strong>Eigenbeleg nach § 146 AO:</strong> Dieser Eigenbeleg dokumentiert die Behandlung eines TikTok Shop Musters (Defekt, Verbrauch oder betriebliche Nutzung), wenn kein separater Beleg vorliegt.</p>
+              <p><strong>Kleinunternehmerregelung (§19 UStG):</strong> Ich bin Kleinunternehmer im Sinne von §19 UStG. Es wird keine Umsatzsteuer ausgewiesen. Ein Vorsteuerabzug ist nicht möglich.</p>
+              <p><strong>Hinweis:</strong> Dieses Dokument dient der internen Dokumentation für das Finanzamt (z. B. EÜR) und ersetzt keine Eingangsrechnung.</p>
+            </div>
+
+            ${screenshotHtml}
+          `;
+        }
+      }
+
+      const container = document.getElementById('invoicePreview');
+      container.innerHTML = html;
+
+      const select = document.getElementById('invoiceNumberSelect');
+      const customInput = document.getElementById('invoiceNumberCustom');
+      if (select) {
+        select.value = 'auto';
+        if (select.options[0]) {
+          select.options[0].textContent = 'Nächste Nummer (' + currentSuggestedInvoiceNumber + ')';
+        }
+      }
+      if (customInput) {
+        customInput.value = '';
+        customInput.disabled = true;
+      }
+
+      document.getElementById('invoiceModalBackdrop').classList.add('active');
+    }
+
+    function closeDocumentModal() {
+      document.getElementById('invoiceModalBackdrop').classList.remove('active');
+      currentInvoiceProductId = null;
+      currentInvoiceNumber = null;
+      currentSuggestedInvoiceNumber = null;
+    }
+
+    function downloadDocumentAsPdf() {
+      if (!currentInvoiceProductId) {
+        window.print();
+        return;
+      }
+      const product = products.find(p => p.id === currentInvoiceProductId);
+      if (!product) {
+        window.print();
+        return;
+      }
+
+      const select = document.getElementById('invoiceNumberSelect');
+      const invoiceSpan = document.getElementById('invoiceNumberSpan');
+
+      if (select && select.value === 'custom') {
+        const customInput = document.getElementById('invoiceNumberCustom');
+        if (customInput && customInput.value.trim()) {
+          currentInvoiceNumber = customInput.value.trim();
+          if (invoiceSpan) invoiceSpan.textContent = currentInvoiceNumber;
+        }
+      } else if (invoiceSpan) {
+        currentInvoiceNumber = invoiceSpan.textContent.trim();
+      }
+
+      const settings = loadSettings();
+      if (select && select.value === 'auto') {
+        if (product.type === 'auszahlung') {
+          settings.lastInvoiceNumberAuszahlung = (settings.lastInvoiceNumberAuszahlung || 0) + 1;
+        } else {
+          settings.lastInvoiceNumberMuster = (settings.lastInvoiceNumberMuster || 0) + 1;
+        }
+        saveSettings(settings);
+      }
+
+      window.print();
+    }
+
+    function copyStandardNote() {
+      const text = `Hinweis zur Dokumentation:
+
+Muster:
+- Normale Muster: Proforma-Rechnung (nicht steuerlich gültig, keine Umsatzsteuer nach §19 UStG).
+- Defekte / verbrauchte / nur betrieblich genutzte Muster: Eigenbeleg nach §146 AO zur internen Dokumentation.
+
+Auszahlungen:
+- Eigenbeleg nach §146 AO für TikTok Shop / TikTok Affiliate Einnahmen.
+- Kein Vorsteuerabzug möglich, da Kleinunternehmer nach §19 UStG.`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Standard-Hinweis in die Zwischenablage kopiert.');
+        }).catch(() => {
+          alert('Konnte den Text nicht automatisch kopieren. Bitte manuell kopieren.');
+        });
+      } else {
+        alert('Automatisches Kopieren wird von diesem Browser nicht unterstützt. Bitte Text manuell kopieren.');
+      }
+    }
+
+    function updateVisibilityByType() {
+      const type = document.getElementById('productType').value;
+      const musterGroup = document.getElementById('musterDateGroup');
+      const auszahlungGroup = document.getElementById('auszahlungDateGroup');
+      const categoryGroup = document.getElementById('categoryGroup');
+      const receiverBlock = document.getElementById('musterReceiverBlock');
+      const usageGroup = document.getElementById('musterUsageGroup');
+
+      const isMuster = (type === 'muster');
+
+      if (musterGroup) musterGroup.style.display = isMuster ? 'block' : 'none';
+      if (auszahlungGroup) auszahlungGroup.style.display = !isMuster ? 'block' : 'none';
+      if (categoryGroup) categoryGroup.style.display = isMuster ? 'block' : 'none';
+      if (receiverBlock) receiverBlock.style.display = isMuster ? 'block' : 'none';
+      if (usageGroup) usageGroup.style.display = isMuster ? 'block' : 'none';
+    }
+
+    function exportCsv() {
+      if (!products.length) {
+        alert('Keine Daten zum Exportieren vorhanden.');
+        return;
+      }
+
+      const rows = [];
+      const header = [
+        'Art',
+        'Titel',
+        'Menge',
+        'Einzelbetrag_EUR',
+        'Gesamtbetrag_EUR',
+        'Kategorie',
+        'Muster_Verwendungsart',
+        'Datum_Muster_erhalten',
+        'Datum_Auszahlung_erhalten',
+        'Händlername',
+        'Händler_Adresse1',
+        'Händler_Adresse2',
+        'Händler_unbekannt_Shop_geschlossen',
+        'Beschreibung',
+        'Erstellt_Am'
+      ];
+      rows.push(header);
+
+      products.forEach(p => {
+        const qty = Number(p.quantity || 1) || 1;
+        const price = Number(p.price || 0) || 0;
+        const total = qty * price;
+        const row = [
+          p.type === 'auszahlung' ? 'Auszahlung (Eigenbeleg)' : 'Muster (Proforma/Eigenbeleg)',
+          p.name || '',
+          String(qty),
+          price.toFixed(2).replace('.', ','),
+          total.toFixed(2).replace('.', ','),
+          p.type === 'muster' ? (p.category || 'Sonstiges') : '',
+          p.type === 'muster' ? musterUsageLabel(p.musterUsageType || 'normal') : '',
+          p.musterDate ? formatDateGermanFromISO(p.musterDate) : '',
+          p.auszahlungDate ? formatDateGermanFromISO(p.auszahlungDate) : '',
+          p.merchantName || '',
+          p.merchantAddress1 || '',
+          p.merchantAddress2 || '',
+          p.merchantUnknown ? 'Ja' : 'Nein',
+          p.description || '',
+          p.createdAt ? formatDateGermanFromISO(p.createdAt) : ''
+        ];
+        rows.push(row);
+      });
+
+      const csv = rows
+        .map(r =>
+          r
+            .map(field => '"' + String(field).replace(/"/g, '""') + '"')
+            .join(';')
+        )
+        .join('\r\n');
+
+      const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'tiktok-shop-manager-export.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderSettingsToForm();
+      products = loadProducts();
+      renderProducts();
+
+      updateVisibilityByType();
+      document.getElementById('productType').addEventListener('change', updateVisibilityByType);
+
+      document.getElementById('saveSettingsBtn').addEventListener('click', () => {
+        const old = loadSettings();
+        const baseSettings = {
+          userName: document.getElementById('userName').value.trim(),
+          userAddress1: document.getElementById('userAddress1').value.trim(),
+          userAddress2: document.getElementById('userAddress2').value.trim(),
+          userTaxNumber: document.getElementById('userTaxNumber').value.trim(),
+          userExtra: document.getElementById('userExtra').value.trim()
+        };
+        const logoInput = document.getElementById('userLogo');
+        const file = logoInput.files[0];
+
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const settings = Object.assign({}, old, baseSettings, {
+              userLogoDataUrl: e.target.result
+            });
+            saveSettings(settings);
+            updateLogoPreview(settings.userLogoDataUrl);
+            logoInput.value = '';
+            alert('Stammdaten (inkl. Logo) gespeichert.');
+          };
+          reader.readAsDataURL(file);
+        } else {
+          const settings = Object.assign({}, old, baseSettings);
+          saveSettings(settings);
+          updateLogoPreview(settings.userLogoDataUrl || null);
+          alert('Stammdaten gespeichert.');
+        }
+      });
+
+      document.getElementById('resetAllBtn').addEventListener('click', () => {
+        if (!confirm('Alle Daten (Einstellungen, Logo & Vorgänge) wirklich löschen?')) return;
+        localStorage.removeItem(STORAGE_KEYS.SETTINGS);
+        localStorage.removeItem(STORAGE_KEYS.PRODUCTS);
+        products = [];
+        renderSettingsToForm();
+        renderProducts();
+        alert('Alle gespeicherten Daten wurden gelöscht.');
+      });
+
+      document.getElementById('addProductBtn').addEventListener('click', () => {
+        const type = document.getElementById('productType').value || 'muster';
+        const name = document.getElementById('productName').value.trim();
+        const priceVal = document.getElementById('productPrice').value.replace(',', '.');
+        const price = parseFloat(priceVal);
+        const qty = parseInt(document.getElementById('productQty').value, 10) || 1;
+        const desc = document.getElementById('productDesc').value.trim();
+        const musterDateInput = document.getElementById('musterDate').value;
+        const auszahlungDateInput = document.getElementById('auszahlungDate').value;
+        const category = document.getElementById('productCategory').value || 'Sonstiges';
+        const musterUsageType = document.getElementById('musterUsageType').value || 'normal';
+
+        const musterDate = (type === 'muster' && musterDateInput) ? musterDateInput : null;
+        const auszahlungDate = (type === 'auszahlung' && auszahlungDateInput) ? auszahlungDateInput : null;
+
+        const merchantName = document.getElementById('merchantName').value.trim();
+        const merchantAddress1 = document.getElementById('merchantAddress1').value.trim();
+        const merchantAddress2 = document.getElementById('merchantAddress2').value.trim();
+        const merchantUnknown = document.getElementById('merchantUnknown').checked;
+
+        const fileInput = document.getElementById('productScreenshot');
+        const file = fileInput.files[0];
+
+        if (!name) {
+          alert('Bitte einen Titel/Produktnamen eingeben.');
+          return;
+        }
+        if (isNaN(price)) {
+          alert('Bitte einen gültigen Betrag eingeben.');
+          return;
+        }
+
+        const addProductObject = (screenshotDataUrl) => {
+          const product = {
+            id: generateId(),
+            type,
+            name,
+            price,
+            quantity: qty,
+            description: desc,
+            screenshotDataUrl: screenshotDataUrl || null,
+            musterDate: musterDate,
+            auszahlungDate: auszahlungDate,
+            category: type === 'muster' ? category : null,
+            musterUsageType: type === 'muster' ? musterUsageType : null,
+            merchantName: type === 'muster' ? merchantName : null,
+            merchantAddress1: type === 'muster' ? merchantAddress1 : null,
+            merchantAddress2: type === 'muster' ? merchantAddress2 : null,
+            merchantUnknown: type === 'muster' ? !!merchantUnknown : false,
+            createdAt: new Date().toISOString()
+          };
+          products.unshift(product);
+          saveProducts(products);
+          renderProducts();
+
+          document.getElementById('productName').value = '';
+          document.getElementById('productPrice').value = '';
+          document.getElementById('productQty').value = '1';
+          document.getElementById('productDesc').value = '';
+          document.getElementById('musterDate').value = '';
+          document.getElementById('auszahlungDate').value = '';
+          document.getElementById('productCategory').value = 'Sonstiges';
+          document.getElementById('musterUsageType').value = 'normal';
+          document.getElementById('merchantName').value = '';
+          document.getElementById('merchantAddress1').value = '';
+          document.getElementById('merchantAddress2').value = '';
+          document.getElementById('merchantUnknown').checked = false;
+          fileInput.value = '';
+
+          alert('Vorgang gespeichert.');
+        };
+
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => addProductObject(e.target.result);
+          reader.readAsDataURL(file);
+        } else {
+          addProductObject(null);
+        }
+      });
+
+      document.getElementById('closeModalBtn').addEventListener('click', closeDocumentModal);
+      document.getElementById('invoiceModalBackdrop').addEventListener('click', (e) => {
+        if (e.target.id === 'invoiceModalBackdrop') closeDocumentModal();
+      });
+
+      document.getElementById('downloadPdfBtn').addEventListener('click', downloadDocumentAsPdf);
+      document.getElementById('copyNoteBtn').addEventListener('click', copyStandardNote);
+
+      const select = document.getElementById('invoiceNumberSelect');
+      const customInput = document.getElementById('invoiceNumberCustom');
+
+      if (select && customInput) {
+        select.addEventListener('change', () => {
+          if (select.value === 'custom') {
+            customInput.disabled = false;
+            customInput.focus();
+          } else {
+            customInput.disabled = true;
+            customInput.value = '';
+            if (currentSuggestedInvoiceNumber) {
+              currentInvoiceNumber = currentSuggestedInvoiceNumber;
+              const span = document.getElementById('invoiceNumberSpan');
+              if (span) span.textContent = currentInvoiceNumber;
+            }
+          }
+        });
+
+        customInput.addEventListener('input', () => {
+          if (select.value === 'custom') {
+            const val = customInput.value.trim();
+            if (val) {
+              currentInvoiceNumber = val;
+              const span = document.getElementById('invoiceNumberSpan');
+              if (span) span.textContent = currentInvoiceNumber;
+            }
+          }
+        });
+      }
+
+      // Kategorie-Filter
+      document.getElementById('filterCategory').addEventListener('change', (e) => {
+        currentFilterCategory = e.target.value || 'all';
+        renderProducts();
+      });
+
+      document.getElementById('resetFilterBtn').addEventListener('click', () => {
+        currentFilterCategory = 'all';
+        document.getElementById('filterCategory').value = 'all';
+        renderProducts();
+      });
+
+      document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
+    });
+  </script>
+</body>
+</html>
